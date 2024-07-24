@@ -1,4 +1,5 @@
 package main
+// fluxo das execuções 1
 
 import (
 	"github.com/Dankei/conta-click/controller"

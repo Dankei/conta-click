@@ -5,20 +5,12 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
+	_ "github.com/mattn/go-sqlite3"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "post"
-	dbname   = "conta_click"
-)
 
 func ConnectDB() (*sql.DB, error) {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	db, err := sql.Open("postgres", psqlInfo)
+	db, err := sql.Open("sqlite3", "click.db")
 	if err != nil {
 		panic(err)
 	}
@@ -27,5 +19,7 @@ func ConnectDB() (*sql.DB, error) {
 		panic(err)
 	}
 	fmt.Println("Successfully connected!")
+
+	db.Exec("INSERT INTO click (name,value) VALUES ('click',0) where not exists (select 1 from click where id = 1)")
 	return db, nil
 }

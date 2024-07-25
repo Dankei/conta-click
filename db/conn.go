@@ -1,5 +1,6 @@
 package db
 //5
+//Conexão com o banco de dados PostgreSQL
 
 import (
 	"database/sql"
